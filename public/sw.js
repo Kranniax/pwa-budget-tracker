@@ -14,16 +14,15 @@ const FILES_TO_CACHE = [
   "./icons/icon-192x192.png",
   "./icons/icon-384x384.png",
   "./icons/icon-512x512.png",
-  "./assets/css/tickets.css",
   "./js/idb.js",
   "./js/index.js",
 ];
 
-// installation of the service worker
+// Installation of the service worker
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("installing cache: " + CACHE_NAME);
+      console.log("Installing cache: " + CACHE_NAME);
       return cache.addAll(FILES_TO_CACHE);
     }),
   );
@@ -35,7 +34,8 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((cacheNames) =>
       Promise.all(
         cacheNames.map((cacheName) => {
-          if (!cacheName.includes(APP_PREFIX)) {
+          if (!cacheName.includes(VERSION)) {
+            console.log("Deleting old cache:", cacheName);
             return caches.delete(cacheName);
           }
           return undefined;
@@ -44,15 +44,18 @@ self.addEventListener("activate", (event) => {
     ),
   );
 });
-// Recovering failed requests
-const cacheFirst = async (request) => {
-  const responseFromCache = await caches.match(request);
-  if (responseFromCache) {
-    return responseFromCache;
-  }
-  return fetch(request);
-};
-
+// Intercept fetch request when network fails.
 self.addEventListener("fetch", (event) => {
-  event.respondWith(cacheFirst(event.request));
+  console.log(`Handling fetch event for ${event.request.url}`);
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        console.log("Found response in cache:", cachedResponse);
+        return cachedResponse;
+      } else {
+        console.log("Falling back to network");
+        return fetch(event.request);
+      }
+    }),
+  );
 });
