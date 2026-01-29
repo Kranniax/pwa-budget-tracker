@@ -21,7 +21,7 @@ Budget Tracker is a progressive web app designed for personal finance management
 
 ## Demo
 
-![Budget Tracker Demo](./Assets/19-pwa-homework-demo-01.png)
+![Budget Tracker Demo](./assets/19-pwa-homework-demo-01.png)
 
 ## Getting started
 
