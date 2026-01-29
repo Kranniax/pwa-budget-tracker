@@ -1,99 +1,115 @@
-# 19 Progressive Web Applications (PWA): Budget Tracker
+# Budget Tracker
 
-Giving users a fast and easy way to track their money is important, but allowing them to access that information at any time is even more important. Having offline functionality is paramount to the success of an application that handles users’ financial information.
+A fast and efficient Progressive Web Application (PWA) for tracking expenses and deposits. Works seamlessly online and offline with automatic synchronization when your connection is restored.
 
-Your challenge this week is to add functionality to an existing budget tracker application to allow for offline access and functionality. The user will be able to add expenses and deposits to their budget with or without a connection. When entering transactions offline, they should update the total when brought back online. Finally, you’ll deploy the application to Heroku.
+## Table of contents
 
-Before you start, clone the [starter code](https://github.com/coding-boot-camp/symmetrical-bassoon).
+- Project overview
+- Getting started
+- Run locally
+- Project structure
+- Features
+- Tech stack
+- Usage
+- Deployment
+- Contributing
+- License
 
-> **On the Job:** When web developers are working on a feature request or trying to kill a bug, they rarely have all the information they need to solve the task in front of them. Being a successful developer requires you to combine knowledge that you’ve picked up from different applications you’ve worked on in the past to formulate a solution.
-> 
-> This Challenge will ask you to combine several tasks that you’ve learned over this module and the previous one to add offline functionality to an existing application. We’ve outlined how you can achieve this in the Getting Started section below.
+## Project overview
 
+Budget Tracker is a progressive web app designed for personal finance management. It allows users to add deposits and expenses anytime, anywhere—even without an internet connection. All transactions are synced automatically to the cloud when connectivity is restored, ensuring your financial data is always up-to-date.
 
-## User Story
+## Demo
 
-```md
-AS AN avid traveller
-I WANT to be able to track my withdrawals and deposits with or without a data/internet connection
-SO THAT my account balance is accurate when I am traveling 
+![Budget Tracker Demo](./Assets/19-pwa-homework-demo-01.png)
+
+## Getting started
+
+### Prerequisites
+
+- Node.js and npm
+- MongoDB Atlas account (or local MongoDB instance)
+- A code editor (VS Code recommended)
+- Modern web browser supporting Service Workers
+
+### Install / Run
+
+```bash
+# Install dependencies
+npm install
+
+# Create a .env file with your MongoDB URI
+# MONGODB_URI=your_mongodb_connection_string
+
+# Start the server
+npm start
+
+# Visit http://localhost:3000 in your browser
 ```
 
-## Acceptance Criteria
+## Project structure
 
-```md
-GIVEN a Budget Tracker without an internet connection
-WHEN the user inputs an expense or deposit
-THEN they will receive a notification that they have added an expense or deposit
-WHEN the user reestablishes an internet connection
-THEN the deposits or expenses added while they were offline are added to their transaction history and their totals are updated
+```
+/assets
+    /icons
+/models
+    transaction.js
+/public
+    index.html
+    manifest.json
+    sw.js
+    /css
+        styles.css
+    /js
+        idb.js
+        index.js
+/routes
+    api.js
+server.js
+package.json
 ```
 
-## Mock-Up
+## Features
 
-The following image shows the web application's appearance and functionality:
+- ✅ Add deposits and expenses with or without internet connection
+- ✅ Offline-first functionality using IndexedDB
+- ✅ Service worker for reliable caching and PWA capabilities
+- ✅ Real-time balance updates
+- ✅ Mobile-responsive design
+- ✅ Installable as a native app
+- ✅ Automatic sync when connectivity is restored
 
-![Challenge Demo](./Assets/19-pwa-homework-demo-01.png)
+## Tech stack
 
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Backend**: Express.js
+- **Database**: MongoDB with Mongoose
+- **Offline Storage**: IndexedDB & Service Workers
+- **Deployment**: Heroku with MongoDB Atlas
 
-## Getting Started
+## Usage
 
-Revisit the following lessons to complete this challenge:
+1. Enter a transaction amount and description
+2. Click "Add Expense" or "Add Deposit"
+3. Your transaction is added instantly (even offline)
+4. When online, transactions automatically sync to the database
+5. Install as a mobile app from your browser menu
 
-### Offline Functionality
+## Deployment
 
-You’ll need to use IndexedDB to add offline functionality. Review Module 18: NoSQL, Lesson 4: Add Offline Persistence with IndexedDB as a refresher on how to add this to your application.
+Deployed to Heroku with MongoDB Atlas. View the live application [here](https://pwa-budget-tracker-7aebcec5c474.herokuapp.com/).
 
-You’ll also need to add a service worker to your application. Review Module 19: Progressive Web Applications (PWA), Lesson 4: Using Service Workers as a refresher on how to add this to your application.
+## Contributing
 
-> **Rewind:** The Food Festival application that you created in this module's lessons did not include an Express.js server, so you used the `webpack-dev-server` npm module to test the service worker with an HTTPS-enabled server.
-> 
-> For this Challenge, however, you aren't using webpack, but you do have an Express.js server provided to you in the starter code. Remember that Chrome DevTools makes it possible to test service workers on localhost in development. Simply click on the Application tab in the tools, then select Service Workers from the left hand navigation.
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/my-feature`
+3. Commit your changes: `git commit -m "Add feature"`
+4. Push and open a pull request
 
-> **Important:** You should add both of the files to handle this functionality to the `public/js/` directory of your application.
+## License
 
-Once you’ve updated the existing budget tracker, it should provide the following functionality:
+© 2026 Wade Wired, LLC
 
-* The ability to enter deposits offline.
+## Contact
 
-* The ability to enter expenses offline.
-
-* Offline entries should be added to the tracker when the application is brought back online.
-
-### Web Manifest
-
-Because this will be a mobile-first application, you’ll also need to add a web manifest to your application with the app’s metadata to let users’ devices know what they’re installing and how the app should look on the home screen.
-
-This `manifest.json` file for this project will contain the following properties:
-
-* `name`
-
-* `short_name`
-
-* `icons`
-
-* `theme_color`
-
-* `background_color`
-
-* `start_url`
-
-* `display`
-
-> **Important:** In the module project, you used webpack to create the `manifest.json` file. For this application, you’ll need to create it manually and add it to the `public/` directory of your application. You can also review **Module 19: Progressive Web Applications (PWA), Lesson 5: PWA** as a refresher on web manifests.
-
-### Deployment to Heroku Using MongoDB Atlas
-
-Finally, the budget tracker has a server and uses MongoDB as its database, so you’ll need to deploy this application to Heroku using MongoDB Atlas. To review this process, look at Module 18: NoSQL, Lesson 5: Add Mongoose Validation, specifically 18.5.5: Deploy to Heroku.
-
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
-- - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+Project created as part of the UCF bootcamp module projects.
